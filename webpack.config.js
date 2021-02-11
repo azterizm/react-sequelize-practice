@@ -1,6 +1,7 @@
 /** @type {import('webpack').Configuration} */
 const path = require('path')
 const webpackNodeExternals = require('webpack-node-externals')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = [
   {
@@ -50,5 +51,8 @@ module.exports = [
         },
       ]
     },
+    plugins: [
+      new CopyWebpackPlugin({patterns: [{from: 'public'}]})
+    ],
   }
 ]
