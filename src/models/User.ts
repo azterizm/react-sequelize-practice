@@ -8,16 +8,24 @@ export const User = sequelize.define<UserInstance>('User', {
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
-    primaryKey: true,
+    primaryKey: true
   },
   username: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
+    validate: {
+      isAlphanumeric: true,
+      notNull: true,
+    }
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      notNull: true,
+    }
   },
   createdAt: {
     type: DataTypes.DATE,
