@@ -19,5 +19,10 @@ hydrate(
     <JssProvider registry={globalStyles()} jss={jss}>
       <App />
     </JssProvider>
-  </BrowserRouter>
-  , document.getElementById('root'))
+  </BrowserRouter>,
+  document.getElementById('root'),
+  () => {
+    const styleSheet = document.getElementById('ssrStylesheet')
+    styleSheet?.parentNode?.removeChild(styleSheet)
+  }
+)

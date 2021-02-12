@@ -1,3 +1,4 @@
+import color from "color"
 import { FC } from "react"
 import { jss } from "react-jss"
 import { Route, Switch } from "react-router-dom"
@@ -41,13 +42,16 @@ export const globalSS = jss.createStyleSheet({
       cursor: 'pointer',
       '&:focus': {
         outline: 'none'
+      },
+      '&:disabled': {
+        color: color('#006800').rgb().fade(0.5).string()
       }
     },
     'a.link': {
       extend: 'button',
       textDecoration: 'none',
       '&:visited': {
-        color: '#006800'
+        color: color('#006800').darken(0.5).hex()
       }
     },
     input: {

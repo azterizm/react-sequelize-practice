@@ -8,16 +8,20 @@ export const Login: FC = () => {
   const [password, setPassword] = useState<string>("")
   const [error, setError] = useState<string>("")
   const [data, setData] = useState<LoginResponse | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
   const styles = useStyles()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true)
     e.preventDefault()
     try {
       const { data }: { data: LoginResponse } = await axios.post('/login', { username, password })
       console.log('data', data)
       if (data?.code === 200) return window.location.href = '/'
+      setLoading(false)
       return setData(data)
     } catch (error) {
+      setLoading(false)
       return setError(error)
     }
   }
@@ -33,7 +37,7 @@ export const Login: FC = () => {
         <label htmlFor="password">Password</label>
         <input type="password" name="password" id="password" value={password} onChange={e => setPassword(e.target.value)} />
 
-        <button type='submit'>Submit</button>
+        <button type='submit' disabled={loading}>Submit</button>
       </form>
 
       { data && (data.additionalInfo.message === 'Incorrect username' && (
