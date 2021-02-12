@@ -1,7 +1,7 @@
 import passport from "passport"
 import { Strategy as LocalStrategy } from "passport-local"
-import { UserAttributes } from "../models/types"
 import { User } from "../models/User"
+import { UserAttributes } from "../types/modelTypes"
 
 export default () => {
   passport.use(new LocalStrategy(async (username, password, done) => {

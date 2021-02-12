@@ -1,4 +1,5 @@
 import axios from "axios";
+import React from 'react'
 import { FC, useState } from "react";
 import { createUseStyles } from "react-jss";
 import { Link } from "react-router-dom";
@@ -7,7 +8,7 @@ interface SignUpData {
   message: string
 }
 
-export const SignUp: FC = () => {
+const SignUp: FC = () => {
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [data, setData] = useState<SignUpData | null>(null)
@@ -64,3 +65,5 @@ const useStyles = createUseStyles({
     textAlign: 'center'
   }
 })
+
+export default SignUp

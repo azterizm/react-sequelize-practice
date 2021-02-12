@@ -1,11 +1,19 @@
+import loadable from '@loadable/component'
 import color from "color"
-import { FC } from "react"
+import React, { FC } from 'react'
 import { jss } from "react-jss"
 import { Route, Switch } from "react-router-dom"
-import { Counter } from "./Counter"
 import { Header } from "./Header"
-import { Login } from "./Login"
-import { SignUp } from "./SignUp"
+
+const Login = loadable(() => import('./Login'), {
+  fallback: <h1>Loading...</h1>
+})
+const SignUp = loadable(() => import('./SignUp'), {
+  fallback: <h1>Loading...</h1>
+})
+const Counter = loadable(() => import('./Counter'), {
+  fallback: <h1>Loading...</h1>
+})
 
 export const App: FC = () => {
   return (
@@ -44,7 +52,8 @@ export const globalSS = jss.createStyleSheet({
         outline: 'none'
       },
       '&:disabled': {
-        color: color('#006800').rgb().fade(0.5).string()
+        color: color('#006800').rgb().fade(0.5).string(),
+        cursor: 'auto'
       }
     },
     'a.link': {

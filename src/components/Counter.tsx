@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
+import React from 'react'
 
-export const Counter: FC = () => {
+const Counter: FC = () => {
   const [count, setCounter] = useState<number>(0)
   return (
     <div id="counter">
@@ -10,3 +11,4 @@ export const Counter: FC = () => {
   )
 }
 
+export default Counter

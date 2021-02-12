@@ -1,9 +1,9 @@
 import axios from "axios";
-import { FC, useState } from "react";
+import React, { FC, useState } from 'react';
 import { createUseStyles } from "react-jss";
 import { LoginResponse } from "../types/components/Login";
 
-export const Login: FC = () => {
+const Login: FC = () => {
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [error, setError] = useState<string>("")
@@ -70,10 +70,12 @@ const useStyles = createUseStyles({
       display: 'block',
       width: 20,
       height: 20,
-      background: 'url("https://www.flaticon.com/svg/vstatic/svg/1182/1182679.svg?token=exp=1613053705~hmac=61e2bdef488ff8b8bdfa41bb684fbc7f") no-repeat',
+      background: 'url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNDUxLjc0IDQ1MS43NCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDUxLjc0IDQ1MS43NDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggc3R5bGU9ImZpbGw6I0UyNEM0QjsiIGQ9Ik00NDYuMzI0LDM2Ny4zODFMMjYyLjg1Nyw0MS42OTJjLTE1LjY0NC0yOC40NDQtNTguMzExLTI4LjQ0NC03My45NTYsMEw1LjQzNSwzNjcuMzgxDQoJYy0xNS42NDQsMjguNDQ0LDQuMjY3LDY0LDM2Ljk3OCw2NGgzNjUuNTExQzQ0Mi4wNTcsNDI5Ljk1OSw0NjEuOTY4LDM5NS44MjUsNDQ2LjMyNCwzNjcuMzgxeiIvPg0KPHBhdGggc3R5bGU9ImZpbGw6I0ZGRkZGRjsiIGQ9Ik0yMjUuODc5LDYzLjAyNWwxODMuNDY3LDMyNS42ODlINDIuNDEzTDIyNS44NzksNjMuMDI1TDIyNS44NzksNjMuMDI1eiIvPg0KPGc+DQoJPHBhdGggc3R5bGU9ImZpbGw6IzNGNDQ0ODsiIGQ9Ik0xOTYuMDEzLDIxMi4zNTlsMTEuMzc4LDc1LjM3OGMxLjQyMiw4LjUzMyw4LjUzMywxNS42NDQsMTguNDg5LDE1LjY0NGwwLDANCgkJYzguNTMzLDAsMTcuMDY3LTcuMTExLDE4LjQ4OS0xNS42NDRsMTEuMzc4LTc1LjM3OGMyLjg0NC0xOC40ODktMTEuMzc4LTM0LjEzMy0yOS44NjctMzQuMTMzbDAsMA0KCQlDMjA3LjM5LDE3OC4yMjUsMTk0LjU5LDE5My44NywxOTYuMDEzLDIxMi4zNTl6Ii8+DQoJPGNpcmNsZSBzdHlsZT0iZmlsbDojM0Y0NDQ4OyIgY3g9IjIyNS44NzkiIGN5PSIzMzYuMDkyIiByPSIxNy4wNjciLz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K)',
       float: 'left',
-      margin: [3, 10, 10, 0],
+      margin: [4, 10, 0, 0],
       content: "''",
     }
   }
 })
+
+export default Login

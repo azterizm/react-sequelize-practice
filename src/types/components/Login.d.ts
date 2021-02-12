@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { UserInstance } from "../../models/types";
+import { UserInstance } from "../modelTypes";
 
 export interface LoginResponse {
   code: StatusCodes,

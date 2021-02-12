@@ -1,7 +1,8 @@
 import { DataTypes } from "sequelize";
 import bcrypt from 'bcrypt'
 import { sequelize } from "../config/db";
-import { UserInstance } from "./types";
+import { UserInstance } from "../types/modelTypes";
+import { Post } from "./Post";
 
 export const User = sequelize.define<UserInstance>('User', {
   id: {
@@ -48,3 +49,5 @@ User.prototype.validPassword = async function(password: string): Promise<boolean
   return await bcrypt.compare(password, this.password)
 };
 
+User.hasMany(Post)
+Post.belongsTo(User)

@@ -1,18 +1,20 @@
-import { FC } from "react";
+import { ChunkExtractor } from "@loadable/server";
+import React, { FC } from 'react';
 
 interface HtmlProps {
   children: string,
-  scripts: string[]
   state: AppState,
-  sheets: string
+  sheets: string,
+  extractor: ChunkExtractor
 }
 
-export const Html: FC<HtmlProps> = ({ state, children, scripts, sheets }) => (
+export const Html: FC<HtmlProps> = ({ extractor, state, children, sheets }) => (
   <html lang="en">
     <head>
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet" />
       <style id='ssrStylesheet' dangerouslySetInnerHTML={{ __html: sheets }} type='text/css' />
+      {extractor.getLinkElements()}
     </head>
     <body>
 
@@ -22,7 +24,7 @@ export const Html: FC<HtmlProps> = ({ state, children, scripts, sheets }) => (
         <script dangerouslySetInnerHTML={{ __html: `window.APP_STATE=${JSON.stringify(state)}` }} />
       }
 
-      {scripts.map((item, i) => <script src={item} key={i} />)}
+      {extractor.getScriptElements()}
 
     </body>
   </html>

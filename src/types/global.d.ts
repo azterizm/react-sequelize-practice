@@ -1,4 +1,4 @@
-import { UserAttributes, UserInstance } from "../models/types";
+import { UserAttributes } from "./modelTypes";
 
 declare global {
   interface Window {

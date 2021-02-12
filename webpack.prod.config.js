@@ -2,7 +2,6 @@
 const path = require('path')
 const webpackNodeExternals = require('webpack-node-externals')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const LoadablePlugin = require('@loadable/webpack-plugin')
 
 module.exports = [
   {
@@ -11,11 +10,9 @@ module.exports = [
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname, 'build'),
-      publicPath: '/'
     },
     target: 'web',
     mode: 'production',
-    devtool: 'source-map',
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
@@ -23,25 +20,11 @@ module.exports = [
       rules: [
         {
           test: /\.(ts|tsx)$/,
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-env',
-              '@babel/preset-react',
-              '@babel/preset-typescript'
-            ],
-            plugins: [
-              '@babel/plugin-transform-async-to-generator',
-              '@babel/plugin-transform-regenerator',
-              '@loadable/babel-plugin'
-            ]
-          }
+          loader: 'awesome-typescript-loader',
+          options: {useCache: true}
         },
       ]
     },
-    plugins: [
-      new LoadablePlugin()
-    ],
   },
 
   {
@@ -54,7 +37,6 @@ module.exports = [
     },
     target: 'node',
     mode: 'production',
-    devtool: 'source-map',
     externals: [webpackNodeExternals()],
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js']
@@ -63,15 +45,7 @@ module.exports = [
       rules: [
         {
           test: /\.(ts|tsx)$/,
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['@babel/preset-env', {targets: {node: '10'}}],
-              '@babel/preset-react',
-              '@babel/preset-typescript'
-            ],
-            plugins: ['@loadable/babel-plugin']
-          }
+          loader: 'awesome-typescript-loader',
         },
       ]
     },
