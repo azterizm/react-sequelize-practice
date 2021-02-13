@@ -1,11 +1,16 @@
 import axios from "axios";
-import React from 'react'
-import { FC } from "react";
-import { createUseStyles } from "react-jss";
+import React, { FC } from 'react';
+import { createUseStyles, useTheme } from "react-jss";
 import { NavLink } from "react-router-dom";
 
-export const Header: FC = () => {
-  const styles = useStyles()
+interface HeaderProps {
+  themeToggler: () => void,
+  theme: string
+}
+
+export const Header: FC<HeaderProps> = ({ theme: themeName, themeToggler }) => {
+  const theme = useTheme()
+  const styles = useStyles({ theme })
   const loggedIn: boolean =
     typeof window !== 'undefined' ? Boolean(window.APP_STATE.user) : false
 
@@ -14,7 +19,6 @@ export const Header: FC = () => {
       if (typeof window !== 'undefined') return window.location.href = '/login'
     })
   }
-
   return (
     <div className={styles.header}>
       <NavLink exact to='/' className={styles.navLink}>Home</NavLink>
@@ -27,25 +31,25 @@ export const Header: FC = () => {
             <NavLink to='/signup' className={styles.navLink}>Sign Up</NavLink>
           </>
         )}
+      <button onClick={themeToggler}>Theme: {themeName}</button>
     </div>
   )
 }
 
 const useStyles = createUseStyles({
   navLink: {
-    color: 'black',
+    color: ({ theme }) => theme.textColor,
     padding: '10px',
     margin: '0 10px',
     textDecoration: 'none',
+    fontFamily: ['Montserrat', 'sans-serif'],
+    '&.active': {
+      color: ({theme}) => theme.header
+    }
   },
   header: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
   },
-  '@global': {
-      '.active': {
-          color: '#720087'
-        }
-    }
 })

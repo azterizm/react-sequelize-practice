@@ -14,7 +14,7 @@ module.exports = [
       publicPath: '/'
     },
     target: 'web',
-    mode: 'production',
+    mode: 'development',
     devtool: 'source-map',
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx']
@@ -31,12 +31,14 @@ module.exports = [
               '@babel/preset-typescript'
             ],
             plugins: [
-              '@babel/plugin-transform-async-to-generator',
-              '@babel/plugin-transform-regenerator',
               '@loadable/babel-plugin'
             ]
           }
         },
+        {
+          test: /\.(png|svg|jpe?g|gif)$/,
+          type: 'asset'
+        }
       ]
     },
     plugins: [
@@ -53,7 +55,7 @@ module.exports = [
       path: path.resolve(__dirname, 'build')
     },
     target: 'node',
-    mode: 'production',
+    mode: 'development',
     devtool: 'source-map',
     externals: [webpackNodeExternals()],
     resolve: {
@@ -73,6 +75,10 @@ module.exports = [
             plugins: ['@loadable/babel-plugin']
           }
         },
+        {
+          test: /\.(png|svg|jpe?g|gif)$/,
+          type: 'asset'
+        }
       ]
     },
     plugins: [

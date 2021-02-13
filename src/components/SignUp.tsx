@@ -1,7 +1,8 @@
 import axios from "axios";
+import color from "color";
 import React from 'react'
 import { FC, useState } from "react";
-import { createUseStyles } from "react-jss";
+import { createUseStyles, useTheme } from "react-jss";
 import { Link } from "react-router-dom";
 
 interface SignUpData {
@@ -12,7 +13,8 @@ const SignUp: FC = () => {
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [data, setData] = useState<SignUpData | null>(null)
-  const styles = useStyles()
+  const theme = useTheme()
+  const styles = useStyles({ theme })
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -24,7 +26,7 @@ const SignUp: FC = () => {
   if (data) return (
     <div className={styles.account}>
       <h1>{data.message}</h1>
-      <Link className='link' to='/login'>Login</Link>
+      <Link className={styles.navLink} to='/login'>Login</Link>
     </div>
   )
 
@@ -34,6 +36,7 @@ const SignUp: FC = () => {
       <form id='signup' onSubmit={handleSubmit}>
         <label htmlFor="username">Username</label>
         <input
+          className={styles.input}
           type="text"
           name="username"
           id="username"
@@ -43,6 +46,7 @@ const SignUp: FC = () => {
 
         <label htmlFor="password">Password</label>
         <input
+          className={styles.input}
           type="password"
           name="password"
           id="password"
@@ -57,12 +61,23 @@ const SignUp: FC = () => {
 }
 
 const useStyles = createUseStyles({
+  navLink: {
+    color: '#006800',
+    textDecoration: 'none',
+    '&:visited': {
+      color: color('#006800').darken(0.5).hex()
+    }
+  },
   account: {
     width: 482,
     margin: '0 auto'
   },
   heading: {
     textAlign: 'center'
+  },
+  input: {
+    background: ({ theme }) => theme.inputBackground,
+    border: ({ theme }) => theme.inputBorder
   }
 })
 

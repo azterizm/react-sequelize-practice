@@ -39,7 +39,8 @@
     "react-lazily": "^0.9.0",
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.7",
-    "sequelize": "^6.5.0"
+    "sequelize": "^6.5.0",
+    "valtio": "^0.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -77,6 +78,7 @@
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^7.0.0",
     "css-loader": "^5.0.1",
+    "file-loader": "^6.2.0",
     "ignore-loader": "^0.1.2",
     "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",

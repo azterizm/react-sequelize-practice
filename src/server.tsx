@@ -32,7 +32,7 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false,
-  store: new SequelizeStore({ db: sequelize })
+  //store: new SequelizeStore({ db: sequelize })
 }))
 app.use(passport.initialize())
 app.use(passport.session())

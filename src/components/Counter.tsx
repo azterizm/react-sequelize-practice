@@ -1,5 +1,4 @@
-import { FC, useState } from "react";
-import React from 'react'
+import React, { FC, useState } from 'react';
 
 const Counter: FC = () => {
   const [count, setCounter] = useState<number>(0)
