@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { FC } from 'react';
 import { createUseStyles, useTheme } from "react-jss";
 import { NavLink } from "react-router-dom";
+import toggleLight from '../assets/toggle-light.png'
+import toggleDark from '../assets/toggle-dark.png'
 
 interface HeaderProps {
   themeToggler: () => void,
@@ -31,7 +33,11 @@ export const Header: FC<HeaderProps> = ({ theme: themeName, themeToggler }) => {
             <NavLink to='/signup' className={styles.navLink}>Sign Up</NavLink>
           </>
         )}
-      <button onClick={themeToggler}>Theme: {themeName}</button>
+      {themeName === 'light' ? (
+        <img className={styles.themeIcon} onClick={themeToggler} src={toggleLight} alt='' />
+      ) : (
+          <img className={styles.themeIcon} onClick={themeToggler} src={toggleDark} alt='' />
+        )}
     </div>
   )
 }
@@ -44,7 +50,7 @@ const useStyles = createUseStyles({
     textDecoration: 'none',
     fontFamily: ['Montserrat', 'sans-serif'],
     '&.active': {
-      color: ({theme}) => theme.header
+      color: ({ theme }) => theme.header
     }
   },
   header: {
@@ -52,4 +58,9 @@ const useStyles = createUseStyles({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  themeIcon: {
+    width: 30,
+    cursor: 'pointer',
+    filter: ({theme}) => theme.filter
+  }
 })

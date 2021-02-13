@@ -41,7 +41,8 @@ export const darkTheme = {
   textWeight: 600,
   header: '#e769ff',
   inputBorder: '0.5px solid #ffffff00',
-  inputBackground: '#202020'
+  inputBackground: '#202020',
+  filter: ['invert(1)']
 }
 
 export const lightTheme = {
@@ -50,7 +51,8 @@ export const lightTheme = {
   textWeight: 300,
   header: '#720087',
   inputBorder: '0.5px solid #bababa',
-  inputBackground: 'white'
+  inputBackground: 'white',
+  filter: ['invert(0)']
 }
 
 export const globalSS = jss.createStyleSheet({
