@@ -18,7 +18,7 @@ export const Html: FC<HtmlProps> = ({ extractor, state, children, sheets }) => (
     </head>
     <body>
 
-      <div id="root" dangerouslySetInnerHTML={{ __html: children }} />
+      {state.user ? <div id='root' /> : <div id='root' dangerouslySetInnerHTML={{ __html: children }} />}
 
       {state &&
         <script dangerouslySetInnerHTML={{ __html: `window.APP_STATE=${JSON.stringify(state)}` }} />

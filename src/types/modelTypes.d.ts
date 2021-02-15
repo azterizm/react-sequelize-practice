@@ -1,6 +1,6 @@
 import { Model } from 'sequelize'
 
-interface UserAttributes {
+export interface UserAttributes {
   id: number,
   username: string,
   password: string,
@@ -8,7 +8,7 @@ interface UserAttributes {
   updatedAt?: Date
 }
 
-interface UserCreationAttributes {
+export interface UserCreationAttributes {
   username: string,
   password: string
 }
@@ -18,7 +18,7 @@ export interface UserInstance extends Model<UserAttributes, UserCreationAttribut
 }
 
 
-interface PostAttributes {
+export interface PostAttributes {
   id: number,
   title: string,
   content: string,
@@ -28,7 +28,7 @@ interface PostAttributes {
   deletedAt?: Date
 }
 
-interface PostCreationAttributes {
+export interface PostCreationAttributes {
   title: string,
   content: string,
   UserId: number

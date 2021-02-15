@@ -24,9 +24,11 @@ export const Header: FC<HeaderProps> = ({ theme: themeName, themeToggler }) => {
   return (
     <div className={styles.header}>
       <NavLink exact to='/' className={styles.navLink}>Home</NavLink>
-      <NavLink to='/counter' className={styles.navLink}>Counter</NavLink>
       {loggedIn ? (
-        <button onClick={handleLogout}>Logout</button>
+        <>
+          <NavLink to='/new' className={styles.navLink}>Create</NavLink>
+          <button onClick={handleLogout}>Logout</button>
+        </>
       ) : (
           <>
             <NavLink to='/login' className={styles.navLink}>Login</NavLink>
@@ -61,6 +63,6 @@ const useStyles = createUseStyles({
   themeIcon: {
     width: 30,
     cursor: 'pointer',
-    filter: ({theme}) => theme.filter
+    filter: ({ theme }) => theme.filter
   }
 })

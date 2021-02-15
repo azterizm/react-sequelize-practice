@@ -1,7 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/db";
 import { PostInstance } from "../types/modelTypes";
-import { User } from "./User";
 
 export const Post = sequelize.define<PostInstance>('Post', {
   id: {

@@ -1,5 +1,4 @@
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
-import React from 'react'
 import flash from 'connect-flash'
 import SequelizeStoreSession from 'connect-session-sequelize'
 import dotenv from 'dotenv'
@@ -8,6 +7,7 @@ import session from 'express-session'
 import morgan from 'morgan'
 import passport from 'passport'
 import path from 'path'
+import React from 'react'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import { JssProvider, SheetsRegistry } from 'react-jss'
 import { StaticRouter } from 'react-router-dom'
@@ -15,13 +15,21 @@ import { App, globalSS } from './components/App'
 import { Html } from './components/Html'
 import { sequelize } from './config/db'
 import passportConfig from './config/passport'
+import { Post } from './models/Post'
 import accountRouter from './routes/account'
+import postRouter from './routes/post'
 
 dotenv.config()
 passportConfig()
 
+console.log('env', process.env.NODE_ENV)
+
 const app = express()
 const SequelizeStore = SequelizeStoreSession(session.Store)
+const store =
+  process.env.NODE_ENV === 'development'
+    ? undefined
+    : new SequelizeStore({ db: sequelize })
 
 app.use(morgan('tiny'))
 app.use(express.static(__dirname))
@@ -32,12 +40,14 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false,
-  //store: new SequelizeStore({ db: sequelize })
+  store: store
 }))
 app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(accountRouter)
+app.use('/api/post', postRouter)
+
 app.get('*', (req, res) => {
   const state: AppState = { user: req.user, flash: req.flash() }
   const extractor = new ChunkExtractor({ statsFile: path.resolve('build/loadable-stats.json') })

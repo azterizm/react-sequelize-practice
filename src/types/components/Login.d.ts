@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { UserInstance } from "../modelTypes";
 
-export interface LoginResponse {
+export interface PostResponse {
   code: StatusCodes,
   err?: any,
   flash?: {
@@ -10,5 +10,6 @@ export interface LoginResponse {
   message?: string,
   additionalInfo?: any,
   user?: UserInstance | boolean,
-  valid?: boolean
+  valid?: boolean,
+  postId?: number
 }

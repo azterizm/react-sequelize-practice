@@ -2,16 +2,18 @@ import loadable from '@loadable/component'
 import color from "color"
 import React, { FC, useEffect, useState } from 'react'
 import { jss, ThemeProvider } from "react-jss"
-import { Route, Switch } from "react-router-dom"
+import { Redirect, Route, Switch } from "react-router-dom"
+import { Post } from '../components/Post'
 import { Header } from "./Header"
+import { PostCreation } from './PostCreation'
+import { PostList } from './PostList'
+import { PostUpdate } from './PostUpdate'
 
 const Login = loadable(() => import('./Login'))
 const SignUp = loadable(() => import('./SignUp'))
-const Counter = loadable(() => import('./Counter'))
 
 export const App: FC = () => {
   const [theme, setTheme] = useState<string>("light")
-  const toggleTheme = (): void => theme === 'light' ? setTheme('dark') : setTheme('light')
 
   useEffect(() => {
     document.body.style.background =
@@ -20,17 +22,21 @@ export const App: FC = () => {
       theme === 'light' ? lightTheme.textColor : darkTheme.textColor
   }, [theme])
 
+  const toggleTheme = (): void => theme === 'light' ? setTheme('dark') : setTheme('light')
+  const user = typeof window !== 'undefined' ? window.APP_STATE.user : null
+
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-      <div className='app'>
-        <Header themeToggler={toggleTheme} theme={theme} />
-        <Switch>
-          <Route exact path='/' render={() => <h1>Home</h1>} />
-          <Route path='/login' component={Login} />
-          <Route path='/signup' component={SignUp} />
-          <Route path='/counter' component={Counter} />
-        </Switch>
-      </div>
+      <Header themeToggler={toggleTheme} theme={theme} />
+      <Switch>
+        <Route exact path='/' render={() => !user ? <h1>This is the information of this app</h1> : <PostList />} />
+        <Route path='/login' component={Login} />
+        <Route path='/signup' component={SignUp} />
+        <Route path='/post/:postId' render={() => !user ? <Redirect to='/login' /> : <Post />} />
+        <Route path='/new' render={() => !user ? <Redirect to='/login' /> : <PostCreation />} />
+        <Route path='/update/:postId' render={() => !user ? <Redirect to='/login' /> : <PostUpdate />} />
+        <Route render={() => <h1>404 Not Found</h1>} />
+      </Switch>
     </ThemeProvider>
   )
 }
@@ -42,7 +48,8 @@ export const darkTheme = {
   header: '#e769ff',
   inputBorder: '0.5px solid #ffffff00',
   inputBackground: '#202020',
-  filter: ['invert(1)']
+  filter: ['invert(1)'],
+  postBackground: '#47474742'
 }
 
 export const lightTheme = {
@@ -52,7 +59,8 @@ export const lightTheme = {
   header: '#720087',
   inputBorder: '0.5px solid #bababa',
   inputBackground: 'white',
-  filter: ['invert(0)']
+  filter: ['invert(0)'],
+  postBackground: '#ececec60'
 }
 
 export const globalSS = jss.createStyleSheet({

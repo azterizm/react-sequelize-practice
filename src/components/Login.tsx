@@ -2,25 +2,22 @@ import axios from "axios";
 import React, { FC, useState } from 'react';
 import { createUseStyles, useTheme } from "react-jss";
 import errorIcon from '../assets/error.png';
-import { LoginResponse } from "../types/components/Login";
+import { PostResponse } from "../types/components/Login";
 
 const Login: FC = () => {
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [error, setError] = useState<string>("")
-  const [data, setData] = useState<LoginResponse | null>(null)
+  const [data, setData] = useState<PostResponse | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const theme = useTheme()
   const styles = useStyles({ theme })
-
-  console.log('errorIcon', errorIcon)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true)
     e.preventDefault()
     try {
-      const { data }: { data: LoginResponse } = await axios.post('/login', { username, password })
-      console.log('data', data)
+      const { data }: { data: PostResponse } = await axios.post('/login', { username, password })
       if (data?.code === 200) return window.location.href = '/'
       setLoading(false)
       return setData(data)

@@ -1,13 +1,11 @@
-import { hydrate } from 'react-dom'
+import { loadableReady } from '@loadable/component'
+import ExtendPlugin from 'jss-plugin-extend'
 import React from 'react'
+import { hydrate, render } from 'react-dom'
 import { jss, JssProvider, SheetsRegistry } from 'react-jss'
 import { BrowserRouter } from 'react-router-dom'
-import { App, globalSS } from './components/App'
-import ExtendPlugin from 'jss-plugin-extend'
-import { loadableReady } from '@loadable/component'
 import 'regenerator-runtime/runtime'
-
-if (typeof window !== 'undefined') console.log(window.APP_STATE)
+import { App, globalSS } from './components/App'
 
 const globalStyles = (): SheetsRegistry => {
   const sheetsRegistry = new SheetsRegistry()
@@ -15,19 +13,30 @@ const globalStyles = (): SheetsRegistry => {
   return sheetsRegistry
 }
 
+const renderElems =
+  <BrowserRouter>
+    <JssProvider registry={globalStyles()} jss={jss}>
+      <App />
+    </JssProvider>
+  </BrowserRouter>
+
+const rootElem = document.getElementById('root')
+
 jss.use(ExtendPlugin())
 
 loadableReady(() => {
-  hydrate(
-    <BrowserRouter>
-      <JssProvider registry={globalStyles()} jss={jss}>
-        <App />
-      </JssProvider>
-    </BrowserRouter>,
-    document.getElementById('root'),
-    () => {
-      const styleSheet = document.getElementById('ssrStylesheet')
-      styleSheet?.parentNode?.removeChild(styleSheet)
-    }
-  )
+  if (rootElem?.hasChildNodes())
+    hydrate(
+      renderElems,
+      rootElem,
+      () => {
+        const styleSheet = document.getElementById('ssrStylesheet')
+        styleSheet?.parentNode?.removeChild(styleSheet)
+      }
+    )
+  else
+    render(
+      renderElems,
+      rootElem
+    )
 })
