@@ -6,6 +6,7 @@ import { PostListData } from "../types/components/PostList";
 
 export const PostList: FC = () => {
   const [data, setData] = useState<PostListData[] | null>(null)
+  console.log('data', data)
   const [loading, setLoading] = useState<boolean>(false)
   const theme = useTheme()
   const styles = useStyles({ theme })

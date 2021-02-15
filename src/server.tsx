@@ -15,7 +15,6 @@ import { App, globalSS } from './components/App'
 import { Html } from './components/Html'
 import { sequelize } from './config/db'
 import passportConfig from './config/passport'
-import { Post } from './models/Post'
 import accountRouter from './routes/account'
 import postRouter from './routes/post'
 

@@ -6,9 +6,14 @@ import { ensureLoggedIn, ensureLoggedInNoDB } from "./middlewares";
 
 const router = Router()
 
+//specify attributes
 router.get('/', ensureLoggedInNoDB, async (_, res) => {
   try {
-    const data = await Post.findAll({ include: User, order: [['createdAt', 'DESC']] })
+    const data = await Post.findAll({
+      include: [{ model: User, attributes: ['username'] }],
+      attributes: ['id', 'title', 'createdAt'],
+      order: [['createdAt', 'DESC']]
+    })
     return res.json(data)
   } catch (error) {
     res.json({ code: StatusCodes.INTERNAL_SERVER_ERROR, err: error })
@@ -103,7 +108,9 @@ router.put('/update/:postId', ensureLoggedIn, async (req, res) => {
 router.post('/:postId', ensureLoggedIn, async (req, res) => {
   try {
     const { postId } = req.params
-    const data = await Post.findByPk(postId)
+    const data = await Post.findByPk(postId, {
+      attributes: ['title', 'content', 'createdAt', 'UserId']
+    })
     return res.json(data)
   } catch (err) {
     return res.json({ err, code: StatusCodes.INTERNAL_SERVER_ERROR })
