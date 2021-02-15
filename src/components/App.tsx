@@ -8,6 +8,7 @@ import { Header } from "./Header"
 import { PostCreation } from './PostCreation'
 import { PostList } from './PostList'
 import { PostUpdate } from './PostUpdate'
+import { ProtectedRoute } from './ProtectedRoute'
 
 const Login = loadable(() => import('./Login'))
 const SignUp = loadable(() => import('./SignUp'))
@@ -23,18 +24,18 @@ export const App: FC = () => {
   }, [theme])
 
   const toggleTheme = (): void => theme === 'light' ? setTheme('dark') : setTheme('light')
-  const user = typeof window !== 'undefined' ? window.APP_STATE.user : null
+  const loggedIn = typeof window !== 'undefined' ? Boolean(window.APP_STATE.user) : false
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <Header themeToggler={toggleTheme} theme={theme} />
       <Switch>
-        <Route exact path='/' render={() => !user ? <h1>This is the information of this app</h1> : <PostList />} />
+        <Route exact path='/' render={() => !loggedIn ? <h1>This is the information of this app</h1> : <PostList />} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />
-        <Route path='/post/:postId' render={() => !user ? <Redirect to='/login' /> : <Post />} />
-        <Route path='/new' render={() => !user ? <Redirect to='/login' /> : <PostCreation />} />
-        <Route path='/update/:postId' render={() => !user ? <Redirect to='/login' /> : <PostUpdate />} />
+        <ProtectedRoute path='/post/:postId' component={Post} />
+        <ProtectedRoute path='/new' component={PostCreation} />
+        <ProtectedRoute path='/update/:postId' component={PostUpdate} />
         <Route render={() => <h1>404 Not Found</h1>} />
       </Switch>
     </ThemeProvider>
